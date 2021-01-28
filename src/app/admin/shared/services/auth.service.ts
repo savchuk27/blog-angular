@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {User} from '../interfaces';
-import {Observable} from 'rxjs';
+import {FbAuthResponse, User} from '../interfaces';
+import {Observable, pipe} from 'rxjs';
+import {environment} from '../../../../environments/environment';
+import {tap} from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
@@ -13,11 +15,15 @@ export class AuthService {
   }
   // tslint:disable-next-line:typedef
   login(user: User): Observable<any> {
-    return this.http.post('', user);
+    return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`, user)
+    .pipe(
+      tap(this.setToken)
+    );
   }
 
   // tslint:disable-next-line:typedef
-  logout(){
+  logout(response){
+    console.log(response);
 
   }
 
@@ -26,8 +32,8 @@ export class AuthService {
   }
 
   // tslint:disable-next-line:typedef
-  private setToken(){
-
+  private setToken(response: FbAuthResponse){
+    console.log(response);
   }
 
 }
