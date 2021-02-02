@@ -5,7 +5,7 @@ import {Observable, pipe, Subject, throwError} from 'rxjs';
 import {environment} from '../../../../environments/environment';
 import {catchError, tap} from 'rxjs/operators';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AuthService {
 
   public error$: Subject<string> = new Subject<string>();
@@ -40,6 +40,7 @@ export class AuthService {
     return !!this.token;
   }
 
+  // tslint:disable-next-line:typedef
   private handleError(error: HttpErrorResponse){
     const {message} = error.error.error;
 
@@ -54,8 +55,7 @@ export class AuthService {
         this.error$.next('Неверный пароль');
         break;
     }
-
-    return throwError(error)
+    return throwError(error);
   }
 
   // tslint:disable-next-line:typedef
