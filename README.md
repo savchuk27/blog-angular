@@ -1,3 +1,6 @@
+# Current version
+https://angular-blog-3ee7f.firebaseapp.com/
+
 # AngularBlog
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.0.
